@@ -9,18 +9,39 @@ import { Card } from '../components/Card';
 
 export const HomePage = () => {
     const [countries, setCountries] = useState([]);
+    const [filteredCountries, setFilteredCountries] = useState(countries);
 
     const navigate = useNavigate();
+
+    const handleSearch = (search, region) => {
+        let data = [...countries];
+
+        if (region) {
+            data = data.filter((country) => country.region.includes(region));
+        }
+
+        if (search) {
+            data = data.filter((country) =>
+                country.name.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+
+        setFilteredCountries(data);
+    };
 
     useEffect(() => {
         axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
     }, []);
 
+    useEffect(() => {
+        handleSearch();
+    }, [countries]);
+
     return (
         <>
-            <Controls />
+            <Controls onSearch={handleSearch} />
             <CountriesList>
-                {countries.map((country) => {
+                {filteredCountries.map((country) => {
                     const goToDetails = () =>
                         navigate(`country/${country.name}`);
 
@@ -39,7 +60,9 @@ export const HomePage = () => {
                             },
                             {
                                 title: 'Capital',
-                                discription: country.capital,
+                                discription: country.capital
+                                    ? country.capital
+                                    : 'There is no capital',
                             },
                         ],
                     };
