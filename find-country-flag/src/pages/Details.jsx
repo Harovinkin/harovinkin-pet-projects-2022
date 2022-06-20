@@ -4,6 +4,7 @@ import axios from 'axios';
 import { IoArrowBack } from 'react-icons/io5';
 import { searchByCountry } from '../components/config';
 import { Button } from '../components/Button';
+import { Info } from '../components/Info';
 
 export const Details = () => {
     const { name } = useParams();
@@ -25,7 +26,7 @@ export const Details = () => {
                 <IoArrowBack />
                 BACK
             </Button>
-            Details {name}
+            {country && <Info {...country} />}
         </div>
     );
 };
