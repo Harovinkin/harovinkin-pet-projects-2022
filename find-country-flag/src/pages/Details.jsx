@@ -11,8 +11,6 @@ export const Details = () => {
     const navigate = useNavigate();
     const [country, setCountry] = useState(null);
 
-    console.log(country);
-
     useEffect(() => {
         axios
             .get(searchByCountry(name))
@@ -26,7 +24,7 @@ export const Details = () => {
                 <IoArrowBack />
                 BACK
             </Button>
-            {country && <Info {...country} />}
+            {country && <Info push={navigate} {...country} />}
         </div>
     );
 };

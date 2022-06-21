@@ -13,7 +13,7 @@ const Wrapper = styled.section`
         grid-template-columns: repeat(2, 1fr);
         gap: 3rem;
 
-        padding: 2.5rem 0;
+        padding: 3rem 0;
     }
     @media (min-width: 1024px) {
         grid-template-columns: repeat(4, 1fr);
